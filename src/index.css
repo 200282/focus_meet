@@ -5,9 +5,117 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+/*background-image: url('Gimages/20240208_001352.jpg');
+ background-repeat: no-repeat;
+ background-size: cover;*/
+ background-color: rgb(163, 156, 177);
+ color: rgb(255, 255, 255);
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.video{
+ 
+display: inline; 
+
+
+}
+
+.room{
+  position:absolute;
+  height:100%;
+  width: 100%;
+  background-color: rgb(41, 40, 42);
+color: azure;
+}
+
+form {
+  height:80h;
+  width: 60vw;
+  border: dashed;
+  padding: 30px;
+  margin: 100px;
+  font-size: medium;
+  font-style: oblique;
+  color: azure;
+ background-image: linear-gradient(220deg,#000000,transparent);
+ border-image:  url('Gimages/1068011_fc799.gif');
+ border-image-width: 5px;
+ border-image-slice: 5;
+ border-image-repeat: repeat;
+ 
+}
+
+.but{
+  background-image: url('Gimages/1068011_fc799.gif');
+ /*background-repeat: no-repeat;*/
+ background-size: cover;
+
+  font-size:x-large;
+  color: rgb(0, 0, 0);
+  font-style: unset;
+  border-color: #000000 ;
+}
+
+a{
+  text-decoration:none;
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  margin: 2em;
+ 
+}
+a:hover{
+  /*text-decoration:none;*/
+  color: rgb(207, 207, 207);
+}
+
+
+.logo{
+  position:fixed;
+  height:100%;
+  width: 100%;
+  background-image: url('Gimages/20240208_001352.jpg');
+ /* background-repeat: no-repeat;*/
+  background-size: cover;
+}
+
+.control{
+  background-color: rgb(255, 255, 255);
+height: fit-content;
+width: fit-content;
+border: dashed;
+  padding: 3px;
+  border-color: blueviolet;
+  border-radius: 20px;
+}
+
+.cam{
+  background-image: url('Gimages/video-call-xxl.png');
+   background-size: cover;
+   height:3em;
+  width: 3em;
+ }
+
+
+.mic{
+  background-image: url('Gimages/microphone-3-xl.png');
+   background-size: cover;
+   height:2em;
+   width: 2em;
+/*color: rgb(195, 175, 223);*/
+}
+.share{
+  background-image: url('Gimages/1710182626094.jpg');
+   background-size: cover;
+   height:2em;
+   width: 2em;
+/*color: rgb(195, 175, 223);*/
+}
+
+
+
+
