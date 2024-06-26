@@ -8,9 +8,9 @@ import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 //import app from "./Config";
 //import firbase from "firebase/app";
 //import "firebase/firestore";
-import { Form ,Button, Image } from "react-bootstrap";
+import { Form ,Button, Image ,Col,Row, Table } from "react-bootstrap";
 import { Video } from "./Video";
-
+import {m } from "./Focus";
 const socket = io('http://localhost:5000/');
 const ws=io(socket); 
 //const firestore=firbase.firbase();
@@ -20,6 +20,8 @@ export function Room(){
     const {id} =useParams();
    const [stream,setstream]=useState();
    const [me,setme]=useState();
+   var currentPeer = null;
+   var screenStream;
    const myvideo=useRef();
    const uservideo=useRef();
    const screen=useRef();
@@ -32,26 +34,42 @@ export function Room(){
  const [vo,setvo]=useState([]);//call
  const [mic,setmic]=useState(true);
  const [cam,setcam]=useState(true);
+ const [ch,setch]=useState(true);
+ const [my,setmy]=useState();
+ 
  const [user,setuser]=useState();
   const [message,setmessage]=useState([]);
  const [share,setshare]=useState(true);
+ 
 useEffect(() => {
 var i='';
  // socket.emit("message","good day");
- socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
+ //socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
   socket.on("getusers",(room)=>{
-   const roomusers=room.filter(room=>room.rid===id);
+   const roomusers=room.filter(room=>room.rid===id&&room.uid!=me);
       console.log(roomusers);});
+
+socket.on("end",(r)=>{
+alert("ending",r);
+socket.emit("end",r);
+});
+socket.on("chat",(c)=>{
+  
+  
+ setmessage(c.filter(room=>room.rid===id));
+      console.log(message);
+      setn('');
+})
 
    peer.on("open",(idd)=>{
       socket.emit("join",id,idd);
+     
       setme(idd);
-   
-      console.log("id: ",idd);
+   //   console.log("id: ",idd);
      
              })   ; 
    
-  navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(
+  navigator.mediaDevices.getUserMedia  ({video:true,audio:true}).then(
    (stream)=>{
    
        if(myvideo.current){
@@ -63,6 +81,7 @@ setstream(stream);
   socket.on("user_connect",(userid)=>{
 
       tonewuser(userid,stream);
+     
       console.log("user connect");
       
   
@@ -80,7 +99,7 @@ console.log("cid",i);
   setvo((c)=>[...c,i]);
  //console.log("vo:",)
   console.log("answer");
-
+  
   
   
 
@@ -91,7 +110,7 @@ console.log("cid",i);
    
 });
 
-    },[]);
+    },[id]);
 
  function tonewuser(userid,stream) {
 
@@ -102,18 +121,21 @@ console.log("cid",i);
            uservideo.current.srcObject=vs;
            console.log("call in stream",userid);
            console.log("vs",vs);
+
           } 
          
               });
               setvi((c)=>[...c,userid]);
            //   vi.push(userid);
           //    console.log("vi:1",vi);
-
+          console.log('userid',userid);
+         console.log("call",call);
+         
           call.on("close",()=>{
        
             console.log("disconnect");
          call.close();   
-     setvi(c=>c.filter(k=>k!==userid));
+   //  setvi(c=>c.filter(k=>k!==userid));
        
              });
     
@@ -122,13 +144,35 @@ console.log("cid",i);
 
 }     
 
+
+const chat=()=>{
+ 
+  setch((ch)=>!ch);
+  console.log(chat);
+}
+const send=()=>{
+  setn(my);
+  socket.emit("chat",{rid:id,uid:me,m:my});
+
+
+}
+
+
+
   
         const gotoreport=()=>{
+         
           navigate('/room/'+id+'/report', {replace:true} );
+       }
+       const leave=()=>{
+        //console.log();
+             
+          navigate('/', {replace:true} );
        }
        
        const End=()=>{
-       
+        
+        socket.emit("end",id);
            navigate('/', {replace:true} );
        }
        
@@ -174,24 +218,45 @@ console.log("cid",i);
       }
       
  const share_screen=()=>{
-  if(share==true){
-   var v=null;
-  console.log("share");
-  navigator.mediaDevices.getDisplayMedia({}).then(sstream=>{
+  var i='';
+  if(share){
+    setshare(false);
+//const media=new MediaStream();
+     stream.getTracks().forEach(function(track) {
+      if(track.readyState==="live"&& track.kind==="video")
+      {  console.log(track);
+        
+        stream.removeTrack(track);
+      
+      }
+         });
+ navigator.mediaDevices.getDisplayMedia({video:true,audio:true}).then(
+  
+  (sstream)=>{
      
-   myvideo.current.srcObject=sstream;
+    sstream.getTracks().forEach(function(track) {
+      if(track.readyState==="live"&& track.kind==="video")
+      {
+    stream.addTrack(track);
+    // media.addTrack(track);
+    i=track.id;
+      }
 
-  const [st]=sstream.getTracks();
-console.log("sst",st);
+         }); 
+            
+         
 
- 
-
-
+                });
+   //setstream(stream);          
+   //socket.emit("join",id,i);
    
-});
-setshare(false);
+  myvideo.current.srcObject = stream;
+     
+
+
 }
-if (share==false){
+else{
+  setshare(true);
   navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(
     (stream)=>{
      setstream(stream);
@@ -199,7 +264,6 @@ if (share==false){
         
                   });
 
-setshare(true);
  }
 
 }
@@ -214,7 +278,11 @@ setshare(true);
 
   return(
 <React.Fragment>
-  <div>
+<m.Consumer>
+        {(e)=>{setuser(e)}}
+        </m.Consumer>  
+        <Row>
+<Col>  
 <div className="room">
 <h1>
        <center>
@@ -226,9 +294,14 @@ setshare(true);
              <div>{id}</div>
                 </center>
 <h2 style={{textAlign:"left"}}>
-<Button  className="but" style={ {borderColor:"#000000" , margin:"3px" }} onClick={gotoreport}> go to report</Button>
+<Button   style={ {borderColor:"#000000" , margin:"3px" ,borderColor:"#56c5cd" , backgroundColor:"#56c5cd", }} onClick={gotoreport}> go to report</Button>
   <span></span> <span></span>
   <Button variant="danger" style={{marginRight:"10px"}} onClick={End}>End</Button>
+  
+  <Button variant="danger" style={{marginRight:"10px"}} onClick={leave}>leave</Button>
+  
+  <Button variant="light" style={{marginRight:"10px"}} onClick={chat}>chat</Button>
+  
   </h2>
         
 
@@ -244,7 +317,7 @@ setshare(true);
                 </center>
   <br></br>
                
-   <div>{me}</div>
+   <div>{user}</div>
   
       <video   className="video"
 playsInline
@@ -262,7 +335,7 @@ return(
 
   <React.Fragment>
  
- <h3  >stream</h3>
+ 
      <video  className="video"
   key={i}
   playsInline
@@ -280,7 +353,7 @@ return(
 return(
   
   <React.Fragment>
-   <h3 style={{ color:"red"}}>call</h3>
+  
     <video  className="video"
   key={i}
   playsInline
@@ -302,9 +375,27 @@ return(
   
 
 </div>
+</Col>
 
-<div style={{backgroundColor:"blue" , color:"red"}}>ddddddd</div>
-</div>
+{! ch&&
+   <Col style={{borderColor:"#56c5cd" , border:"2px"}}>
+  <center> <h3>chat</h3></center>
+{message.map((d)=>{return(<div><div>{d.uid}</div><div>{d.m}</div><br></br></div>)})}
+<div>{n}</div>
+<div className="" style={{display:'inline'}}>
+<Form.Control type="text" name="my" onChange={(e) => {
+    setmy(e.target.value);
+    }}   placeholder=" my message"></Form.Control>
+ 
+ <Button  onClick={send} style={ {margin:"3px" ,borderColor:"#56c5cd" , backgroundColor:"#56c5cd", }}>send</Button>
+
+  </div>
+
+</Col>}
+
+
+</Row>
+
   </React.Fragment>
     )
 

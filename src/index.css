@@ -26,8 +26,8 @@ display: inline;
 }
 
 .room{
-  position:absolute;
-  height:100%;
+position:-webkit-sticky;
+  height:730px;
   width: 100%;
   background-color: rgb(41, 40, 42);
 color: azure;

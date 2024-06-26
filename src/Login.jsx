@@ -8,10 +8,11 @@ import firbase from "firebase/app";
 import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 
 
-export function Login(){
+export function Login({getusername}){
 
     const navigate=useNavigate();
     const [username,setusername]=useState("");
+    const [name,setname]=useState("");
     const [password,setpassword]=useState("");
     const db=getDatabase();
    const change_username=(event)=>{
@@ -23,13 +24,14 @@ export function Login(){
 
  const login=()=>{
  
-const dbref=ref(db);
-get(child(dbref,'users/'+username)).then((snapshot)=>{
-    if(snapshot.exists()&&password===snapshot.val().password){ 
-      //  console.log(snapshot.val().password);
-         navigate('/', {replace:true},{state:username});}
-else {alert('not exist');}
-}).catch((e)=>{alert(e)});
+    const dbref=ref(db);
+    get(child(dbref,'users/'+username)).then((snapshot)=>{
+        if(snapshot.exists()&&password===snapshot.val().password){ 
+          //  console.log(snapshot.val().password);
+    getusername(username);
+             navigate('/', {replace:true});}
+    else {alert('not exist');}
+    }).catch((e)=>{alert(e)});
 
  
 

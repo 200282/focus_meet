@@ -17,6 +17,7 @@ const room='';
 var userid='';
 var  rooms=[{rid:'',uid:''}];
 var message=[{rid:'',m:''}];
+var chat=[{rid:'',uid:'',m:''}];
 const streams=[{}];
 app.use(cors());
 const PORT=process.env.PORT || 5000;
@@ -76,7 +77,25 @@ socket.on("create_message",(room,n)=>{
   const messages= message.filter(message=>message.rid===room);
   socket.broadcast.emit("get_message",message) ;
  socket.to(room).emit('get_message',message) ;
-})
+});
+
+
+socket.on("end",(room)=>{
+  console.log('meeting ended');
+  socket.to(room).emit("end",room) ;
+  socket.leave(room); 
+});
+
+
+socket.on("chat",c=>{
+chat.push(c);
+console.log("chatting");
+console.log(chat);
+//socket.to(room).emit("chat",chat) ;
+socket.broadcast.emit('chat',chat);
+});
+
+
 
 });
 

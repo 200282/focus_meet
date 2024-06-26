@@ -7,6 +7,7 @@ import {v4 as uuidv4} from "uuid";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Form ,Button } from "react-bootstrap";
+import {m } from "./Focus";
 const socket = io('http://localhost:5000/');
  
 
@@ -30,35 +31,44 @@ useEffect(() => {
 
 
 var create=()=>{
- 
+   
   //  socket.emit("create",roomid)
   socket.emit("join",roomid,id);
     console.log("create")
-    navigate('/room/'+roomid);
+    navigate('/room/'+roomid);}
+    
 
-}
 
 var join=()=>{
 
     console.log("join");
     console.log(room);
+    if(user){
     if(room){
         socket.emit("join",room,id);
         navigate('/room/'+room);
     }
     else {
         alert("please enter room id");
+    }}
+    else {
+        alert("please login");
     }
   
 }
 
     return(
         <React.Fragment>
+
+       <m.Consumer>
+        {(e)=>{setuser(e)}}
+        </m.Consumer>     
             <div className="logo">
-    <h1> <center>Hello  </center>
+                <h1>
+   <br></br>
     <center>
         <div>
-    <h2>{location.state}</h2>
+    <h2>{user}</h2>
 
    </div></center></h1>
    
@@ -87,6 +97,8 @@ var join=()=>{
 </Form>
 </center>
 </div>
+ <Button className="but" onClick={create} style={ {borderColor:"#000000"}}>create meeting</Button>
+  
     </React.Fragment>
     )
     
