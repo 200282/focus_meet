@@ -6,8 +6,9 @@ import { io } from "socket.io-client";
 import {v4 as uuidv4} from "uuid";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Form ,Button } from "react-bootstrap";
+import { Form ,Button, Row ,Col} from "react-bootstrap";
 import {m } from "./Focus";
+import { My } from "./My";
 const socket = io('http://localhost:5000/');
  
 
@@ -57,6 +58,14 @@ var join=()=>{
   
 }
 
+const my_account=()=>{
+   if(user){
+   navigate('/meet/'+user);}
+   else{
+    alert("please login");
+   }
+}
+
     return(
         <React.Fragment>
 
@@ -64,14 +73,20 @@ var join=()=>{
         {(e)=>{setuser(e)}}
         </m.Consumer>     
             <div className="logo">
-                <h1>
-   <br></br>
+               
+  
+   <div style={{borderColor:"#28a4bd" , backgroundColor:"#28a4bd"  , margin:"0px" ,}}>
+  <div className="circle"  onClick={my_account} style={{marginLeft:"10px", display:"inline-block"}}><center>{user ?<h1>{user[0]}</h1>:<h1>?</h1>}</center></div> 
+    <h2 style={{display:"inline-block",marginLeft:"5px"}}>{user}</h2> 
+    </div>
     <center>
         <div>
-    <h2>{user}</h2>
-
-   </div></center></h1>
+    
    
+
+   </div></center>
+   
+    
 <center>
     <Form >
         <h1>Hello
@@ -83,11 +98,11 @@ var join=()=>{
     }}   placeholder=" Room id "></Form.Control>
    <span> </span>
    <br></br>
-    <Button className="but" onClick={join} style={ {borderColor:"#000000"}}>  join</Button>
+    <Button className="but" onClick={join} style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }}>  join</Button>
     <br></br>
     <br></br>
     <br></br>
-    <Button className="but" onClick={create} style={ {borderColor:"#000000"}}>create meeting</Button>
+    <Button className="but" onClick={create} style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }}>create meeting</Button>
   
 <br></br>
  <a href="/login">login</a>
@@ -96,9 +111,10 @@ var join=()=>{
 </Form.Group>
 </Form>
 </center>
+
 </div>
- <Button className="but" onClick={create} style={ {borderColor:"#000000"}}>create meeting</Button>
-  
+ 
+ 
     </React.Fragment>
     )
     

@@ -25,11 +25,12 @@ const colors=['#964b9e','#74367a'];
 
 export function All(){
 
+    const {id} =useParams();
 const [showen ,setshowen]=useState(false);
 const [shownen ,setshownen]=useState(false);
 
  useEffect(() => {
-   
+  console.log(id); 
     
 },[]);
     const [student,setstudent]=useState(users);
@@ -62,8 +63,8 @@ const shn=()=>{
     return(
     <React.Fragment>
 
-
-<h2 style={{color:"violet"}}>ALL RESULTS</h2>
+<br></br>
+<h2 style={{color:"violet" , margin:"8px"}}>ALL RESULTS</h2>
 
 <PieChart width={300} height={300} >
     <Legend layout="horizontal"  verticalAlign="top" align="center"  />

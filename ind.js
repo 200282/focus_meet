@@ -5,6 +5,7 @@ const http=require("http")
 const server=require("http").createServer(app);
 const cors = require("cors");
 const { Socket } = require("socket.io");
+const { default: Peer } = require("peerjs");
 
 const io=require("socket.io")(server,{
 cors:{
@@ -95,7 +96,14 @@ console.log(chat);
 socket.broadcast.emit('chat',chat);
 });
 
-
+socket.on("leave",(r)=>{
+  //socket.leave(r);
+  socket.to(room).emit("end",room) ;
+ // socket.leave(room);
+ 
+    console.log("leave");
+  
+});
 
 });
 

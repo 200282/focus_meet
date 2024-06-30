@@ -96,7 +96,7 @@ const signupp= ()=>{
 
 <br></br>
 <center><Button className="but"  onClick={signupp}
-style={ {borderColor:"#000000"}}>Sign up</Button>
+style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }}>Sign up</Button>
 </center>
 <br></br>
 

@@ -55,8 +55,12 @@ export function Login({getusername}){
 </div>
 <br></br>
 </center>
-<center><Button onClick={login} className="but" style={ {borderColor:"#000000"}}>Login</Button></center>
+<center><Button onClick={login} className="but" style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }} >Login</Button></center>
+
+<Form.Label style={{display:"inline-block"}}>Not a member ? </Form.Label> 
+<a href="/signup">signup</a>
 </Form.Group>
+
 </Form>
 </center>
 </div>

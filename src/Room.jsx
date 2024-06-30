@@ -8,7 +8,7 @@ import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 //import app from "./Config";
 //import firbase from "firebase/app";
 //import "firebase/firestore";
-import { Form ,Button, Image ,Col,Row, Table } from "react-bootstrap";
+import { Form ,Button, Image ,Col,Row, Table ,Alert , Modal} from "react-bootstrap";
 import { Video } from "./Video";
 import {m } from "./Focus";
 const socket = io('http://localhost:5000/');
@@ -22,7 +22,7 @@ export function Room(){
    const [me,setme]=useState();
    var currentPeer = null;
    var screenStream;
-   const myvideo=useRef();
+   const myvideo=useRef(null);
    const uservideo=useRef();
    const screen=useRef();
  const meid=uuidv4();
@@ -36,13 +36,14 @@ export function Room(){
  const [cam,setcam]=useState(true);
  const [ch,setch]=useState(true);
  const [my,setmy]=useState();
- 
+ const[l,setl]=useState(true);
  const [user,setuser]=useState();
   const [message,setmessage]=useState([]);
  const [share,setshare]=useState(true);
  
 useEffect(() => {
 var i='';
+
  // socket.emit("message","good day");
  //socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
   socket.on("getusers",(room)=>{
@@ -50,9 +51,14 @@ var i='';
       console.log(roomusers);});
 
 socket.on("end",(r)=>{
-alert("ending",r);
-socket.emit("end",r);
+//alert("the meeting is ended",window.location.href='http://localhost:3000/');
+setl(false);
+  
+
 });
+
+
+
 socket.on("chat",(c)=>{
   
   
@@ -87,6 +93,7 @@ setstream(stream);
   
  });
  peer.on("call",(call)=>{
+ 
   i=call.peer;
 console.log("cid",i);
   call.answer(stream,id);
@@ -99,10 +106,16 @@ console.log("cid",i);
   setvo((c)=>[...c,i]);
  //console.log("vo:",)
   console.log("answer");
+ 
+  call.on("close",()=>{
+    call.close(); 
+   
+    setvo(c=>c.filter(k=>k!==i));
+    console.log("disconnect");
   
+  //  setvi(c=>c.filter(k=>k!==userid));
   
-  
-
+     });
     
   
 });
@@ -111,34 +124,43 @@ console.log("cid",i);
 });
 
     },[id]);
-
+const [k,setk]=useState(false);
  function tonewuser(userid,stream) {
 
             const call=peer.call(userid,stream);
            
-                call.on("stream",(vs)=>{
+               call.on("stream",(vs)=>{
                if(vs.active){
+            
            uservideo.current.srcObject=vs;
            console.log("call in stream",userid);
-           console.log("vs",vs);
-
-          } 
+           console.log("vs",uservideo.current.srcObject.active);
+           
+          } else{
+            peer.destroy();
+          }
+         
          
               });
+            
               setvi((c)=>[...c,userid]);
+             
+             console.log('vid',uservideo.current)
            //   vi.push(userid);
-          //    console.log("vi:1",vi);
+            console.log("vi",vi);
           console.log('userid',userid);
          console.log("call",call);
          
           call.on("close",()=>{
-       
+            call.close(); 
+          //  setvi(c=>c.splice(c.indexOf(userid),1));
+           setvi(c=>c.filter(k=>k!==userid));
             console.log("disconnect");
-         call.close();   
+          
    //  setvi(c=>c.filter(k=>k!==userid));
        
              });
-    
+           
 
 
 
@@ -166,14 +188,16 @@ const send=()=>{
        }
        const leave=()=>{
         //console.log();
-             
-          navigate('/', {replace:true} );
+       window.location.href='http://localhost:3000/'
+      
+      //    navigate('/', {replace:true} );
        }
        
        const End=()=>{
         
         socket.emit("end",id);
-           navigate('/', {replace:true} );
+        window.location.href='http://localhost:3000/'
+      
        }
        
        const tog_mic=()=>{
@@ -280,8 +304,22 @@ else{
 <React.Fragment>
 <m.Consumer>
         {(e)=>{setuser(e)}}
-        </m.Consumer>  
+        </m.Consumer>
+
+    
+        {! l&&
+        <center>
+       
+        <Alert  style={{margin:"0px",backgroundColor:"#000000",color:"#56c5cd"}}>
+          <center>
+          <h2>the meeting is ended</h2>
+        <Button onClick={leave} style={{backgroundColor:"#56c5cd" , borderColor:"#56c5cd" }}>ok</Button>
+        </center>
+        </Alert>
+        
+        </center>}  
         <Row>
+        
 <Col>  
 <div className="room">
 <h1>
@@ -293,9 +331,9 @@ else{
 <center>
              <div>{id}</div>
                 </center>
-<h2 style={{textAlign:"left"}}>
-<Button   style={ {borderColor:"#000000" , margin:"3px" ,borderColor:"#56c5cd" , backgroundColor:"#56c5cd", }} onClick={gotoreport}> go to report</Button>
-  <span></span> <span></span>
+<h2 style={{textAlign:"left" , margin:"9px"}}>
+
+  
   <Button variant="danger" style={{marginRight:"10px"}} onClick={End}>End</Button>
   
   <Button variant="danger" style={{marginRight:"10px"}} onClick={leave}>leave</Button>
@@ -316,8 +354,9 @@ else{
                 </h6>
                 </center>
   <br></br>
-               
-   <div>{user}</div>
+      <div style={{display:"inline-block",border:"solid",borderColor:"#28a4bd",margin:"9px"}}>         
+  
+   <div >{user}</div>
   
       <video   className="video"
 playsInline
@@ -328,22 +367,22 @@ style={{ width: "300px",margin:"3px" , display:"inline-block"}}
 
 
 />
-
+</div>
 {vi.map((data,i)=>{
 
 return(
 
   <React.Fragment>
- 
- 
+ <div style={{display:"inline-block",border:"solid",borderColor:"#28a4bd",margin:"9px"}}>
+ <div >{data}</div>
      <video  className="video"
   key={i}
   playsInline
   
   ref={uservideo}
   autoPlay
-  style={{ width: "300px" ,margin:"3px"  , display:"inline-block"}}
-  />
+  style={{ width: "300px" ,margin:"6px"  , display:"inline-block"}}
+  /></div>
  </React.Fragment>
    )
    })}
@@ -353,7 +392,8 @@ return(
 return(
   
   <React.Fragment>
-  
+    <div style={{display:"inline-block"  , border:"solid",borderColor:"#28a4bd",margin:"9px" }}>
+  <div >{data}</div>
     <video  className="video"
   key={i}
   playsInline
@@ -361,8 +401,9 @@ return(
   ref={uservideo}
   autoPlay
   
-  style={{ width: "300px" ,margin:"3px" ,display:"inline-block"  }}
+  style={{ width: "300px"  ,display:"inline-block"  }}
   />
+  </div>
 
 
  </React.Fragment>
@@ -378,7 +419,7 @@ return(
 </Col>
 
 {! ch&&
-   <Col style={{borderColor:"#56c5cd" , border:"2px"}}>
+   <Col  xs={5} style={{borderColor:"#56c5cd" , border:"2px"}}>
   <center> <h3>chat</h3></center>
 {message.map((d)=>{return(<div><div>{d.uid}</div><div>{d.m}</div><br></br></div>)})}
 <div>{n}</div>
@@ -387,7 +428,7 @@ return(
     setmy(e.target.value);
     }}   placeholder=" my message"></Form.Control>
  
- <Button  onClick={send} style={ {margin:"3px" ,borderColor:"#56c5cd" , backgroundColor:"#56c5cd", }}>send</Button>
+ <Button  onClick={send} style={ {margin:"3px" ,borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }}>send</Button>
 
   </div>
 

@@ -9,6 +9,7 @@ import { Report } from "./Report";
 import { All} from "./All";
 import { Student } from "./Student";
 import { Cha } from './Cha';
+import { My } from "./My";
 export const m = createContext();
 
 export function Home(){
@@ -28,6 +29,7 @@ return(
 <Route path="/login" element={<Login getusername={getusername}/>}/>
 <Route path="/room/:id" element={<Room/>}/>
 <Route path="/chat" element={<Cha/>}/>
+<Route path="/meet/:id" element={<My/>}/>
 <Route path="/room/:id/report" element={<Report/>}/>
 <Route path="/room/:id/report/student" element={<Student/>}/>
 <Route path="/room/:id/report/overall" element={<All/>}/>
