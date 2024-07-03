@@ -27,7 +27,7 @@ return(
 <Route  path='/' element={<Meet/>}/>
 <Route path="/signup" element={<Sign/>}/>
 <Route path="/login" element={<Login getusername={getusername}/>}/>
-<Route path="/room/:id" element={<Room/>}/>
+<Route path="/room/:id" element={<Room nam={nam} />}/>
 <Route path="/chat" element={<Cha/>}/>
 <Route path="/meet/:id" element={<My/>}/>
 <Route path="/room/:id/report" element={<Report/>}/>

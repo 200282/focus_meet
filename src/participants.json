@@ -1,0 +1,20 @@
+[
+    {
+        "username": "Sara",
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270b",
+        "join_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"],
+        "leave_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"]
+    },
+    {
+        "username": "Noor",
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270b",
+        "join_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"],
+        "leave_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"]
+    },
+    {
+        "username": "Sara",
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270a",
+        "join_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"],
+        "leave_times": [" YYYY-MM-DD hh:mm:ss", " YYYY-MM-DD hh:mm:ss"]
+    }
+]

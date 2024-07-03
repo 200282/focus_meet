@@ -14,7 +14,9 @@ import {m } from "./Focus";
 const socket = io('http://localhost:5000/');
 const ws=io(socket); 
 //const firestore=firbase.firbase();
-export function Room(){
+
+
+export function Room({nam}){
  
    const navigate=useNavigate();
     const {id} =useParams();
@@ -27,7 +29,9 @@ export function Room(){
    const screen=useRef();
  const meid=uuidv4();
  const md=uuidv4();
- const peer = new Peer(meid);
+ const [user,setuser]=useState();
+ const peer = new Peer(nam);
+ 
  const [n,setn]=useState();
  const [vi,setvi]=useState([]);//stream
  const [vs,setvs]=useState([]);//screen
@@ -37,13 +41,19 @@ export function Room(){
  const [ch,setch]=useState(true);
  const [my,setmy]=useState();
  const[l,setl]=useState(true);
- const [user,setuser]=useState();
+ const[s,sets]=useState(true);
+ 
   const [message,setmessage]=useState([]);
  const [share,setshare]=useState(true);
  
+
+
+
+
 useEffect(() => {
 var i='';
 
+console.log("my name",nam);
  // socket.emit("message","good day");
  //socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
   socket.on("getusers",(room)=>{
@@ -65,13 +75,25 @@ socket.on("chat",(c)=>{
  setmessage(c.filter(room=>room.rid===id));
       console.log(message);
       setn('');
-})
+});
+
+socket.on("share",(vst)=>{
+  if(vst){
+    console.log("share stream",vst);
+    setstream(vst);
+  alert("share");
+  screen.current.srcObject=stream;
+  sets(false);}
+
+});
+
 
    peer.on("open",(idd)=>{
-      socket.emit("join",id,idd);
+    
+     socket.emit("join",id,idd);
+     console.log("peer",peer)
+     setme(idd);
      
-      setme(idd);
-   //   console.log("id: ",idd);
      
              })   ; 
    
@@ -92,6 +114,12 @@ setstream(stream);
       
   
  });
+
+
+
+
+
+
  peer.on("call",(call)=>{
  
   i=call.peer;
@@ -136,9 +164,7 @@ const [k,setk]=useState(false);
            console.log("call in stream",userid);
            console.log("vs",uservideo.current.srcObject.active);
            
-          } else{
-            peer.destroy();
-          }
+          } 
          
          
               });
@@ -241,54 +267,55 @@ const send=()=>{
       console.log("cam ",cam);
       }
       
- const share_screen=()=>{
-  var i='';
-  if(share){
-    setshare(false);
-//const media=new MediaStream();
-     stream.getTracks().forEach(function(track) {
-      if(track.readyState==="live"&& track.kind==="video")
-      {  console.log(track);
+      const share_screen=()=>{
+        var i='';
+        if(share){
+          setshare(false);
+      //const media=new MediaStream();
+           stream.getTracks().forEach(function(track) {
+            if(track.readyState==="live"&& track.kind==="video")
+            {  console.log(track);
+              
+              stream.removeTrack(track);
+            
+            }
+               });
+       navigator.mediaDevices.getDisplayMedia({video:true,audio:true}).then(
         
-        stream.removeTrack(track);
+        (sstream)=>{
+           
+          sstream.getTracks().forEach(function(track) {
+            if(track.readyState==="live"&& track.kind==="video")
+            {
+          stream.addTrack(track);
+          // media.addTrack(track);
+          i=track.id;
+            }
+      
+               }); 
+                  
+               
+      
+                      });
+         //setstream(stream);          
+         //socket.emit("join",id,i);
+         
+        myvideo.current.srcObject = stream;
+           
+      
       
       }
-         });
- navigator.mediaDevices.getDisplayMedia({video:true,audio:true}).then(
-  
-  (sstream)=>{
-     
-    sstream.getTracks().forEach(function(track) {
-      if(track.readyState==="live"&& track.kind==="video")
-      {
-    stream.addTrack(track);
-    // media.addTrack(track);
-    i=track.id;
-      }
-
-         }); 
-            
-         
-
-                });
-   //setstream(stream);          
-   //socket.emit("join",id,i);
-   
-  myvideo.current.srcObject = stream;
-     
-
-
-}
-else{
-  setshare(true);
-  navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(
-    (stream)=>{
-     setstream(stream);
-          myvideo.current.srcObject = stream;
-        
-                  });
-
- }
+      else{
+        setshare(true);
+        navigator.mediaDevices.getUserMedia({video:true,audio:true}).then(
+          (stream)=>{
+           setstream(stream);
+                myvideo.current.srcObject = stream;
+              
+                        });
+      
+       }
+      
 
 }
  
@@ -310,10 +337,10 @@ else{
         {! l&&
         <center>
        
-        <Alert  style={{margin:"0px",backgroundColor:"#000000",color:"#56c5cd"}}>
+        <Alert  style={{margin:"0px",backgroundColor:"#ebe8ef",color:"#28a4bd"}}>
           <center>
           <h2>the meeting is ended</h2>
-        <Button onClick={leave} style={{backgroundColor:"#56c5cd" , borderColor:"#56c5cd" }}>ok</Button>
+        <Button onClick={leave} style={{backgroundColor:"#28a4bd" , borderColor:"#28a4bd" }}>ok</Button>
         </center>
         </Alert>
         
@@ -354,7 +381,23 @@ else{
                 </h6>
                 </center>
   <br></br>
-      <div style={{display:"inline-block",border:"solid",borderColor:"#28a4bd",margin:"9px"}}>         
+{!s&&
+  <div style={{display:"inline-block",border:"solid",borderColor:"#d4b7ea",margin:"9px"}}>         
+  
+  <div >share screen</div>
+ 
+     <video   className="video"
+playsInline
+muted
+ref={screen}
+autoPlay
+style={{ width: "500px",margin:"3px" , display:"inline-block"}}
+
+
+/>
+</div>}
+
+      <div style={{display:"inline-block",border:"solid",borderColor:"#d4b7ea",margin:"9px"}}>         
   
    <div >{user}</div>
   

@@ -28,12 +28,11 @@ const printref=useRef();
   <m.Consumer>
         {(e)=>{setuser(e)}}
         </m.Consumer>  
+        
+        <div className="layout">
 
-<center>
-    <h1 style={{color:"#28a4bd"}}>welcome to report page</h1>
-</center >
-            <div ref={printref} className="layout">
-
+            <div ref={printref} >
+            <br></br>
 
 <All/>
 
@@ -44,6 +43,7 @@ const printref=useRef();
 </h2>
 <br></br>
 <br></br>
+</div>
         </React.Fragment>
     )
 }

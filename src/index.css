@@ -76,6 +76,18 @@ form {
   border-color: #000000 ;
 }
 
+.log{
+ 
+
+  width: 10ch;
+  height: 8ch;
+  
+  background-image: url('Gimages/6.png');
+ /* background-repeat: no-repeat;
+  background-color: #000000;*/
+  background-size: cover;
+ 
+}
 a{
   text-decoration:none;
   display: inline-block;
@@ -152,4 +164,103 @@ border: dashed;
   font-family: 'Franklin Gothic Medium';
 }
 
+
+.layout{
+  background-color: #ffffff;
+}
+
+.div{
+  background-color: #ebe8ef;
+  border-radius: 25px;
+ margin-left: 10%;
+ transition: transform 0.2s;
+}
+.div:hover{
+ transform: scale(1.08); 
+ border: solid;
+ border-color: #d4b7ea;
+}
+.des{
+  font-size: larger;
+  font-weight: bolder;
+ margin-top: 8%;
+  
+  
+}
+.cir{
+  width: 8%;
+  height: 15%;
+  border: solid;
+  border-color: #d4b7ea;
+  background-image: url('Gimages/6.png');
+  background-size: cover;
+  border-radius: 50%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+.per{
+  font-size: xx-large;
+  font-weight:bolder;
+  text-decoration: wavy;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+  
+}
+.sum{
+  background-color: #fbfeff;;
+border-radius: 20px;
+}
+
+.butt{
+  margin-top: 3ch;
+  background-color: #28a4bd;
+  width: 30%;
+  height: 50%;
+  border-radius: 50%;
+  
+  
+
+}
+
+
+
+
+.c1{
+  width: 6%;
+  height: 18%;
+  border: solid;
+  border-color: #28a4bd;
+ background-color: #28a4bd;
+  
+  border-radius: 50%;
+  margin-top: 5%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.c2{
+  width: 6%;
+  height: 18%;
+  border: solid;
+  border-color: rgb(246, 252, 133);
+  background-color: rgb(246, 252, 133);
+  border-radius: 50%;
+  margin-top: 5%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.c3{
+  width: 6%;
+  height: 18%;
+  border: solid;
+  border-color: #d4b7ea;
+  background-color:#d4b7ea;
+ 
+  border-radius: 50%;
+  margin-top: 5%;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
 

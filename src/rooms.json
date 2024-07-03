@@ -1,0 +1,23 @@
+[
+    {
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270b",
+        "host_name": "Sara",
+        "created_at": " YYYY-MM-DD hh:mm:ss",
+        "ended_at": " YYYY-MM-DD hh:mm:ss",
+        "participants_ids": ["Sara", "Noor"]
+    },
+    {
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270a",
+        "host_name": "Noor",
+        "created_at": " YYYY-MM-DD hh:mm:ss",
+        "ended_at": " YYYY-MM-DD hh:mm:ss",
+        "participants_ids": ["Sara", "Noor"]
+    },
+    {
+        "room_id": "e42b523258ce34a1c3360bc5f6b4b82c0f4a83197124270c",
+        "host_name": "Shimaa",
+        "created_at": " YYYY-MM-DD hh:mm:ss",
+        "ended_at": " YYYY-MM-DD hh:mm:ss",
+        "participants_ids": ["Shimaa", "Noor"]
+    }
+]

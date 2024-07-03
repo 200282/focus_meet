@@ -57,10 +57,11 @@ socket.on('create',(room)=>{
 socket.on('join',(room , userid)=>{
   //  rooms.push({rid:room,uid:userid});
   //  console.log(rooms);
-      console.log("join to room :", room ," user is :",userid);
-      socket.join(room);  
+  socket.join(room);
       socket.to(room).emit('user_connect',userid) ;
-    socket.to(room).emit('join',userid) ;
+      console.log("join to room :", room ," user is :",userid);
+     
+   socket.to(room).emit('join',userid) ;
   //  socket.broadcast.emit('user_connect',userid);
    //   socket.emit("getusers", rooms );
 });
@@ -104,6 +105,13 @@ socket.on("leave",(r)=>{
     console.log("leave");
   
 });
+
+
+socket.on("share",(vst,room)=>{
+  console.log("share");
+  socket.to(room).emit("share",vst) ;  
+});
+
 
 });
 

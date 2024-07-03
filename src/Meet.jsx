@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import {v4 as uuidv4} from "uuid";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Form ,Button, Row ,Col} from "react-bootstrap";
+import { Form ,Button, Row ,Col, Image} from "react-bootstrap";
 import {m } from "./Focus";
 import { My } from "./My";
 const socket = io('http://localhost:5000/');
@@ -34,7 +34,7 @@ useEffect(() => {
 var create=()=>{
    
   //  socket.emit("create",roomid)
-  socket.emit("join",roomid,id);
+ // socket.emit("join",roomid,id);
     console.log("create")
     navigate('/room/'+roomid);}
     
@@ -42,21 +42,21 @@ var create=()=>{
 
 var join=()=>{
 
-    console.log("join");
-    console.log(room);
-    if(user){
+  
+   
+   
     if(room){
-        socket.emit("join",room,id);
+     //   socket.emit("join",room,id);
+        console.log("join");
         navigate('/room/'+room);
     }
     else {
         alert("please enter room id");
-    }}
-    else {
-        alert("please login");
     }
-  
 }
+
+  
+
 
 const my_account=()=>{
    if(user){
@@ -75,22 +75,21 @@ const my_account=()=>{
             <div className="logo">
                
   
-   <div style={{borderColor:"#28a4bd" , backgroundColor:"#28a4bd"  , margin:"0px" ,}}>
-  <div className="circle"  onClick={my_account} style={{marginLeft:"10px", display:"inline-block"}}><center>{user ?<h1>{user[0]}</h1>:<h1>?</h1>}</center></div> 
-    <h2 style={{display:"inline-block",marginLeft:"5px"}}>{user}</h2> 
-    </div>
-    <center>
-        <div>
+   <div style={{borderColor:"#28a4bd" , backgroundColor:"#28a4bd"  , margin:"0px" }}>
+  <div className="circle"  onClick={my_account} style={{marginLeft:"10px", display:"inline-block"}}>
+    <center>{user ?<h1>{user[0]}</h1>:<h1>?</h1>}</center></div> 
     
+    <h2 style={{display:"inline-block",marginLeft:"5px"}}>{user}</h2> 
+    <div className="log" style={{display:"inline-block",float:"right" , }}><br></br><br></br></div>
+    </div>
    
-
-   </div></center>
+   
    
     
 <center>
+
     <Form >
-        <h1>Hello
-        </h1>
+        <h1>Hello</h1>
         <Form.Group>
   <Form.Label>room id  </Form.Label>
   <Form.Control type="text" name="room" onChange={(e) => {
@@ -110,6 +109,7 @@ const my_account=()=>{
 <a href="/signup">signup</a>
 </Form.Group>
 </Form>
+
 </center>
 
 </div>
