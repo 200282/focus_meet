@@ -180,6 +180,21 @@ border: dashed;
  border: solid;
  border-color: #d4b7ea;
 }
+
+.divmy{
+  background-color: #ebe8ef;
+  border-radius: 25px;
+ margin-left: 10%;
+ margin-right: 10%;
+ transition: transform 0.2s;
+}
+
+.divmy:hover{
+  transform: scale(1.04); 
+  border: solid;
+  border-color: #28a4bd;
+ }
+
 .des{
   font-size: larger;
   font-weight: bolder;
@@ -213,15 +228,17 @@ border-radius: 20px;
 }
 
 .butt{
-  margin-top: 3ch;
+  margin-top: 20%;
   background-color: #28a4bd;
-  width: 30%;
+  width: 40%;
   height: 50%;
-  border-radius: 50%;
-  
-  
-
+  border-radius: 10px;
+  font-size:xx-large;
+  font-weight: bolder;
+  text-align: center;
+color: #ffffff;
 }
+
 
 
 
@@ -263,4 +280,40 @@ border-radius: 20px;
   margin-bottom: 5px;
   margin-left: 5px;
 }
+.nam{
+  border: solid;
+  border-color: #28a4bd;
+  background-color: #ebe8ef;
+  font-size: larger;
+  color: #000000;
+  border-radius: 10px;
+  width: max-content;
+  border-spacing:10px ;
+  margin-bottom: 2px;
+}
+
+.message{
+  border: solid;
+  border-color: #28a4bd;
+  font-size: large;
+  color: #000000;
+  width: max-content;
+  border-radius: 8px;
+  
+}
+
+
+
+.b{
+  margin-top: 3ch;
+  background-color: #28a4bd;
+  width: 30%;
+  height: 50%;
+  border-radius: 50%;
+  font-size:xx-large;
+  font-weight: bolder;
+  
+
+}
+
 

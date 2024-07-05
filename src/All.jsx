@@ -103,7 +103,7 @@ const shn=()=>{
 
 <Col className="sum" style={{border:"dashed",borderColor:"#d4b7ea"  }}><h4 style={{color:"#28a4bd"}}><center>meeting summary</center></h4>
 <p style={{fontSize:"large"}}>meeting ID : {room_id[0]}</p>
-<p style={{fontSize:"large"}}>Date : {date[0]}</p>
+<p style={{fontSize:"large"}}>Date : 5/7/2024 {date[0]}</p>
 <p style={{fontSize:"large"}}>started at : 12:26 pm </p>
 <p style={{fontSize:"large"}}>ended at : 1:38 pm</p>
 <p style={{fontSize:"large"}}>number of participants : 30</p>
@@ -113,11 +113,16 @@ const shn=()=>{
 </Row>
 <br></br>
 
+
 <Row  className="div" style={{ margin:"2%" ,marginLeft:"10%" ,marginRight:"10%" }}>
    <Col xs={2}>{!showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" }} onClick={sh}>+</Button>}
+    <div className="butt"
+     style={{backgroundColor:"#28a4bd" 
+     ,borderColor:"#28a4bd" ,fontSize:"xx-large" 
+     ,fontWeight:"bold" , }} 
+     onClick={sh}><center>+</center></div>}
      {showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>-</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>-</center></div>}
        </Col>
        <Col> <PieChart width={130} height={100} >
    
@@ -136,9 +141,9 @@ const shn=()=>{
 
     <Row className="div" style={{ margin:"2%" ,marginLeft:"10%" ,marginRight:"10%" }}>
    <Col xs={2}>{!showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>+</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>+</center></div>}
      {showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>-</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>-</center></div>}
        </Col>
        <Col> <PieChart width={130} height={100} >
    
@@ -157,9 +162,9 @@ const shn=()=>{
 
     <Row className="div" style={{ margin:"2%" ,marginLeft:"10%" ,marginRight:"10%"  }}>
    <Col xs={2}>{!showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>+</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>+</center></div>}
      {showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>-</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>-</center></div>}
        </Col>
        <Col> <PieChart width={130} height={100} >
    
@@ -178,9 +183,9 @@ const shn=()=>{
 
     <Row className="div" style={{ margin:"2%" ,marginLeft:"10%" ,marginRight:"10%" }}>
    <Col xs={2}>{!showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>+</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>+</center></div>}
      {showen &&
-    <Button className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd"}} onClick={sh}>-</Button>}
+    <div className="butt" style={{backgroundColor:"#28a4bd" ,borderColor:"#28a4bd" ,fontSize:"xx-large" ,fontWeight:"bold" }} onClick={sh}><center>-</center></div>}
        </Col>
        <Col> <PieChart width={130} height={100} >
    

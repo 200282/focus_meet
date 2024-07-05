@@ -43,33 +43,47 @@ useEffect(()=>{
         </m.Consumer>   
         <div className="logo">  
         <br></br>
+        <Row style={{margin:"1%" }}>
 
-   <center>    <h1>Hi {user}</h1></center> 
+<Col style={{marginLeft:"4%" }}><div className="cir" style={{marginLeft:"10px", display:"inline-block"}}>
+</div>
+<h1 style={{ display:"inline-block",marginLeft:"2px"}}> EnGauge</h1>
+ <br></br>
+</Col>
+<Col
+className="sum" style={{border:"dashed",borderColor:"#d4b7ea"  }}><h4 style={{color:"#28a4bd"}}><center>My Account</center></h4>
+<p style={{fontSize:"large"}}> Name : {user}</p>
+<p style={{fontSize:"large"}}> Email : {email}</p>
+</Col>
+</Row>
+   
    <br></br>
    <br></br>
- 
-   <Row  style={{fontSize:"large",margin:"9px"}}> <Col  style={{display:"inline-block" ,margin:"5px", backgroundColor:"#d4b7ea" ,marginLeft:"5px",border:"solid" ,borderColor:"#ebebc3" }}><center>{nam}</center></Col>
-   <Col  style={{display:"inline-block" ,margin:"5px",marginRight:"5px", backgroundColor:"#d4b7ea",border:"solid" ,borderColor:"#ebebc3"}}><center>{email}</center></Col></Row>
-   <br></br><br></br>
+  <br></br>
    <center><div className="repo">Reports</div></center>
    <br></br>
    {reports.map((data,i)=>
-   <ul  key={i}   style={{borderColor:"#d7d2de" , backgroundColor:"#ebe8ef" , margin:"5px", fontSize:"large" }}>
+   <ul  key={i}   className="divmy">
     <p style={{display:"inline-block" , margin:"12px"}}> {data.roomid}</p><span>{data.time}</span> 
+   
     <Button className="but" onClick={()=>{
 
 navigate('/room/'+data.roomid+'/report', {replace:true} );
     
 
-
     }} style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", float:"right" , marginTop:"7px" , marginRight:"7px"}}>Open</Button>
   
     </ul>
-
-)}</div>
+  
+)}
+</div>
         </React.Fragment>
        
     )
 
 
 }
+
+
+
+//style={{borderColor:"#d7d2de" , backgroundColor:"#ebe8ef" , margin:"5px", fontSize:"large" }}

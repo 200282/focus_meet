@@ -32,7 +32,7 @@ export function Room({nam}){
  const [user,setuser]=useState();
  const peer = new Peer(nam);
  
- const [n,setn]=useState();
+ const [n,setn]=useState([]);
  const [vi,setvi]=useState([]);//stream
  const [vs,setvs]=useState([]);//screen
  const [vo,setvo]=useState([]);//call
@@ -52,7 +52,7 @@ export function Room({nam}){
 
 useEffect(() => {
 var i='';
-
+console.log("n is",n);
 console.log("my name",nam);
  // socket.emit("message","good day");
  //socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
@@ -74,7 +74,7 @@ socket.on("chat",(c)=>{
   
  setmessage(c.filter(room=>room.rid===id));
       console.log(message);
-      setn('');
+      setn([]);
 });
 
 socket.on("share",(vst)=>{
@@ -199,8 +199,10 @@ const chat=()=>{
   console.log(chat);
 }
 const send=()=>{
-  setn(my);
+  setn([...n,my]);
   socket.emit("chat",{rid:id,uid:me,m:my});
+console.log(message);
+console.log("n is",n);
 
 
 }
@@ -463,9 +465,21 @@ return(
 
 {! ch&&
    <Col  xs={5} style={{borderColor:"#56c5cd" , border:"2px"}}>
-  <center> <h3>chat</h3></center>
-{message.map((d)=>{return(<div><div>{d.uid}</div><div>{d.m}</div><br></br></div>)})}
-<div>{n}</div>
+  <center> <h3 style={{color:"#28a4bd"}}>chat</h3></center>
+
+{message.map((d,i)=>{return(<div key={i} style={{}}>
+<div className="nam">{d.uid}</div>
+<div className="message">{d.m}</div>
+<br></br>
+</div>)})}
+
+{n.map((data)=>{return(<div style={{}}>
+  <div className="nam">{me}</div>
+<div className="message">{data}</div>
+<br></br>
+</div>)})}
+
+<br></br>
 <div className="" style={{display:'inline'}}>
 <Form.Control type="text" name="my" onChange={(e) => {
     setmy(e.target.value);
