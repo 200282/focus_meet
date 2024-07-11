@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form ,Button } from "react-bootstrap";
 import app from "./Config";
 import firbase from "firebase/app";
+
+import axios from "axios";
+
 import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 export const usercontext=React.createContext()
 var users=[{name:'',username:'',password:'',group:''}];
@@ -48,9 +51,29 @@ const change_name=(event)=>{
 
 
             }    
-const signupp= ()=>{
+const signupp= (e)=>{
 
-    const dbref=ref(db);
+    e.preventDefault();
+ 
+   axios.post("http://localhost:3006/register",
+    {"username":name , "email":email , "password":password})
+    .then(res =>{
+      console.log(res.data);
+   go();
+}).
+catch (err => {
+  
+    if(err)
+    {console.log("error message : ", err);
+        alert(err.response.data.message);
+    }
+});
+
+
+
+
+
+ /*   const dbref=ref(db);
     get(child(dbref,'users/'+name)).then((snapshot)=>{
         if(!snapshot.exists()&& name && email &&password){ 
        
@@ -66,7 +89,11 @@ const signupp= ()=>{
     
             }
     else {alert('choose another username');}
-    }).catch((e)=>{alert(e)});
+    }).catch((e)=>{alert(e)});*/
+
+
+
+
 
 
 }

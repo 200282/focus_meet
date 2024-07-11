@@ -6,7 +6,7 @@ import { Form ,Button } from "react-bootstrap";
 import app from "./Config";
 import firbase from "firebase/app";
 import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
-
+import axios from "axios";
 
 export function Login({getusername}){
 
@@ -22,9 +22,30 @@ export function Login({getusername}){
             setpassword(event.target.value);
              }
 
- const login=()=>{
+ const login=(e)=>{
  
-    const dbref=ref(db);
+    e.preventDefault();
+ 
+    axios.post("http://localhost:3006/auth",
+     {"username":username , "password":password})
+     .then(res =>{
+       console.log(res.data);
+       getusername(username);
+       navigate('/', {replace:true});
+ }).
+ catch (err => {
+   
+     if(err)
+     {console.log("error message : ", err);
+         alert(err.response.data.message);
+     }
+ });
+
+
+
+
+
+ /*   const dbref=ref(db);
     get(child(dbref,'users/'+username)).then((snapshot)=>{
         if(snapshot.exists()&&password===snapshot.val().password){ 
           //  console.log(snapshot.val().password);
@@ -32,7 +53,7 @@ export function Login({getusername}){
              navigate('/', {replace:true});}
     else {alert('not exist');}
     }).catch((e)=>{alert(e)});
-
+*/
  
 
 }
