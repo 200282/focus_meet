@@ -112,8 +112,8 @@ const my_account=()=>{
 
 </center>
 
+<div className="gif" style={{marginLeft:"10%" ,marginBottom:"10%" , marginTop:"0px"}}></div>
 </div>
- 
  
     </React.Fragment>
     )

@@ -93,9 +93,12 @@ const shn=()=>{
         <br></br>
         <Row style={{margin:"1%" }}>
 
-<Col style={{marginLeft:"4%" }}><div className="cir" style={{marginLeft:"10px", display:"inline-block"}}>
-<br></br></div>
-<h1 style={{ display:"inline-block",marginLeft:"2px"}}> EnGauge</h1>
+<Col style={{marginLeft:"4%" }}>
+<div className="cir" style={{marginLeft:"10px", display:"inline-block" ,marginRight:"0px"}}>
+
+</div>
+
+<h1 style={{ display:"inline-block",marginLeft:"0px"}}> EnGauge</h1>
  <br></br>
 <h8 style={{marginLeft:"10%" }}>EnGauge smarter ,</h8><br></br>
 <h8 style={{marginLeft:"10%" }}> connect better</h8>

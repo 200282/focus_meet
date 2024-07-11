@@ -367,19 +367,23 @@ console.log("n is",n);
   
   <Button variant="danger" style={{marginRight:"10px"}} onClick={leave}>leave</Button>
   
-  <Button variant="light" style={{marginRight:"10px"}} onClick={chat}>chat</Button>
   
   </h2>
         
 
   
-<center>
+<center >
   <h6 className="control">
 <Button  onClick={tog_cam} style={ {borderColor:"#ffffff" ,margin:"3px" , backgroundColor:"white" }}><div className="cam">  {!cam&&<h1 >/</h1>}  </div> </Button>
 <span></span> <span></span>
 <Button  onClick={tog_mic} style={ {borderColor:"#ffffff" ,  backgroundColor:"white"}} ><div className="mic"> {!mic&&<h1 >/</h1>} </div> </Button>
 <Button  onClick={share_screen} style={ {borderColor:"#ffffff" ,  backgroundColor:"white"}} ><div className="share">{share&&<h1>/</h1>} </div> </Button>
-      
+<Button  style={{backgroundColor:"#ffffff" , borderColor:"#ca9deb" , margin:"10px",color:"#ca9deb" 
+, fontSize:"large" ,fontWeight:"bolder" , border:"solid"
+, float:"right"}}
+ onClick={chat}>chat</Button>
+  
+  
                 </h6>
                 </center>
   <br></br>
@@ -399,9 +403,9 @@ style={{ width: "500px",margin:"3px" , display:"inline-block"}}
 />
 </div>}
 
-      <div style={{display:"inline-block",border:"solid",borderColor:"#d4b7ea",margin:"9px"}}>         
-  
-   <div >{user}</div>
+      <div className="bv" style={{display:"inline-block",border:"solid",borderColor:"#d4b7ea",margin:"9px"}}>         
+  <center><div >{user}</div></center>
+   
   
       <video   className="video"
 playsInline
@@ -418,8 +422,8 @@ style={{ width: "300px",margin:"3px" , display:"inline-block"}}
 return(
 
   <React.Fragment>
- <div style={{display:"inline-block",border:"solid",borderColor:"#28a4bd",margin:"9px"}}>
- <div >{data}</div>
+ <div className="bv" style={{display:"inline-block",border:"solid",borderColor:"#28a4bd",margin:"9px"}}>
+ <center><div >{data}</div></center>
      <video  className="video"
   key={i}
   playsInline
@@ -437,8 +441,8 @@ return(
 return(
   
   <React.Fragment>
-    <div style={{display:"inline-block"  , border:"solid",borderColor:"#28a4bd",margin:"9px" }}>
-  <div >{data}</div>
+    <div className="bv" style={{display:"inline-block"  , border:"solid",borderColor:"#28a4bd",margin:"9px" }}>
+    <center><div >{data}</div></center>
     <video  className="video"
   key={i}
   playsInline
@@ -480,12 +484,18 @@ return(
 </div>)})}
 
 <br></br>
-<div className="" style={{display:'inline'}}>
-<Form.Control type="text" name="my" onChange={(e) => {
+<br></br>
+<br></br>
+<div className="box">
+ <div className="m">
+<Form.Control  
+type="text" name="my" onChange={(e) => {
     setmy(e.target.value);
-    }}   placeholder=" my message"></Form.Control>
- 
- <Button  onClick={send} style={ {margin:"3px" ,borderColor:"#28a4bd" , backgroundColor:"#28a4bd", }}>send</Button>
+    }}   placeholder=" my message"
+    
+    ></Form.Control>
+ </div>
+ <Button  onClick={send} style={ {margin:"3px" ,borderColor:"#28a4bd" , backgroundColor:"#28a4bd",display:"inline-block" }}>send</Button>
 
   </div>
 

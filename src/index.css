@@ -21,7 +21,7 @@ code {
 .video{
  
 display: inline; 
-
+border-radius: 15px;
 
 }
 
@@ -82,12 +82,20 @@ form {
   width: 10ch;
   height: 8ch;
   
-  background-image: url('Gimages/6.png');
- /* background-repeat: no-repeat;
-  background-color: #000000;*/
+  background-image: url('Gimages/2EnGauge (1) (pdf.io)-Kittl.svg');
+  background-repeat: no-repeat;
+  /*background-color: #000000;*/
   background-size: cover;
- 
+ margin-right: 1%;
+ transition: transform 0.2s;
 }
+.log:hover{
+  
+  transform: scale(1.09);
+  color: #fbfeff;
+  
+}
+
 a{
   text-decoration:none;
   display: inline-block;
@@ -123,6 +131,7 @@ a:hover{
  /* background-image: url('Gimages/20240208_001352.jpg');
  /* background-repeat: no-repeat;*/
   background-size: cover;
+  overflow: scroll;
 }
 
 .control{
@@ -131,8 +140,14 @@ height: fit-content;
 width: fit-content;
 border: dashed;
   padding: 3px;
-  border-color: blueviolet;
+  border-color: #d4b7ea;
   border-radius: 20px;
+  position:relative;
+ 
+  
+ 
+ 
+
 }
 
 .cam{
@@ -203,16 +218,13 @@ border: dashed;
   
 }
 .cir{
-  width: 8%;
-  height: 15%;
-  border: solid;
-  border-color: #d4b7ea;
-  background-image: url('Gimages/6.png');
+  
+  width: 10ch;
+  height: 8ch;
+  background-image: url('Gimages/logoreport.svg');
   background-size: cover;
-  border-radius: 50%;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
+  background-repeat: no-repeat;
+  
 }
 .per{
   font-size: xx-large;
@@ -290,6 +302,7 @@ color: #ffffff;
   width: max-content;
   border-spacing:10px ;
   margin-bottom: 2px;
+  padding: 1%;
 }
 
 .message{
@@ -299,7 +312,7 @@ color: #ffffff;
   color: #000000;
   width: max-content;
   border-radius: 8px;
-  
+  padding: 1%;
 }
 
 
@@ -316,4 +329,31 @@ color: #ffffff;
 
 }
 
+
+
+
+.box{
+  position:fixed;
+  bottom: 0;
+  width: 100%;
+  
+}
+
+
+
+.gif{
+  
+  width: 80%;
+ height: 70%;
+  background-image: url("Gimages/download.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+  opacity: 0.4;
+}
+
+.bv{
+  border-radius: 25px;
+  
+}
 

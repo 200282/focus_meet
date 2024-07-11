@@ -58,16 +58,11 @@ const signupp= ()=>{
                 username: name,
                 email:email,
                 password:password
-               
-                
                 }).then(()=>{
-                   
-                    {  go();}
-                   
-                
+                      {  go();}
+                                 
                 }).catch((e)=>{
-                    alert(e);
-                });
+                    alert(e);      });
     
             }
     else {alert('choose another username');}
