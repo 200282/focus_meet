@@ -240,7 +240,7 @@ border-radius: 20px;
 }
 
 .butt{
-  margin-top: 20%;
+  margin-top: 10%;
   background-color: #28a4bd;
   width: 40%;
   height: 50%;
@@ -357,3 +357,10 @@ color: #ffffff;
   
 }
 
+
+.ro{
+font-weight: 900;
+}
+.ro:hover{
+background-color: #dbe529;
+}

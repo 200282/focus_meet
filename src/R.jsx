@@ -29,7 +29,6 @@ const colors=['#28a4bd','##ffffff'];
 
 export function All({nam}){
 
-    //const date=new Date();
     const printref=useRef();
     const {id} =useParams();
     const [data,setdata]=useState(reports)
@@ -40,11 +39,8 @@ const [showeff ,setshoweff]=useState(false);
 const [showbody ,setshowbody]=useState(false);
 const [showtab ,setshowtab]=useState(false);
 const room_id = data.map(r=>r.room_id);
-const [host_name,sethost_name] =useState() ;
-const [att,setatt] =useState() ;
-const [created_at,setcreated_at] =useState() ;
-const [ended_at,setended_at] =useState() ;
-const [npar,setnpar]=useState() ;
+const host_name = data.map(r=>r.host_name);
+const date = data.map(r=>r.date);
 const effective_attendance = data.map(r=>r.effective_attendance);
 const yef =effective_attendance[0]*100;
 const nef =100-yef;
@@ -80,16 +76,9 @@ const tabs=[
 ];
 
 
-const name=["shimaa","youssef"];
-const eff=["90%","80%"];
-const teff="85%"
-const eng=["60%","70%"];
-const teng="100%"
-const bla=["60%","40%"]
-const tbla="50%";
-const iden=eff.map(r=>{return(<p >{r}</p>);  }) ;
-const ide=eng.map(r=>{return(<p >{r}</p>);  }) ;
-const idn=bla.map(r=>{return(<p >{r}</p>);  }) ;
+const ide=["sara","shimaa","sagda","youssef"];
+const name=["80%","75%","88%","70%"];
+const iden=ide.map(r=>{return(<p >{r}</p>);  }) ;
 const namen=name.map(r=>{return(<p>{r}</p>);  }) ;
 const print=useReactToPrint(
     {
@@ -108,11 +97,8 @@ useEffect(() => {
 axios.get("http://localhost:3006/user/"+nam+"/"+id)
 .then(res=>{
      console.log("data:",res.data);
-sethost_name(res.data.room.host_name);
-setcreated_at(res.data.room.created_at);
-//setended_at(date);
-setnpar(res.data.room.participants_ids.length);
-//setatt(res.data.room.records.username);
+
+
 
 }).catch(err=>{
     if(err)
@@ -178,9 +164,10 @@ const sh_eng=()=>{
 
 <Col className="sum" style={{border:"dashed",borderColor:"#d4b7ea"  }}><h4 style={{color:"#28a4bd"}}><center>meeting summary</center></h4>
 <p style={{fontSize:"large"}}>meeting ID : {id}</p>
-<p style={{fontSize:"large"}}>host name : {host_name}</p>
-<p style={{fontSize:"large"}}>started at : {created_at} </p>
-<p style={{fontSize:"large"}}>number of participants : 2</p>
+<p style={{fontSize:"large"}}>Date : 5/7/2024 {date[0]}</p>
+<p style={{fontSize:"large"}}>started at : 12:26 pm </p>
+<p style={{fontSize:"large"}}>ended at : 1:38 pm</p>
+<p style={{fontSize:"large"}}>number of participants : 30</p>
 
 </Col>
 
@@ -208,7 +195,7 @@ const sh_eng=()=>{
    ))}
    </Pie>
    </PieChart></Col>
-   <Col className="per" style={{marginTop:"1.5%"}}>{teff}</Col>
+   <Col className="per" style={{marginTop:"1.5%"}}>{yef}%</Col>
    <Col ><p className="des">Effective attendance time</p></Col>
    
     </Row>
@@ -223,8 +210,8 @@ const sh_eng=()=>{
              </thead >
              <tbody >
                 <tr >
-        <td><center>{namen}</center></td>
         <td><center>{iden}</center></td>
+        <td><center>{namen}</center></td>
         </tr>
         </tbody>
         </Table>
@@ -246,7 +233,7 @@ const sh_eng=()=>{
    ))}
    </Pie>
    </PieChart></Col>
-   <Col className="per" style={{marginTop:"1.5%"}}>{teng}</Col>
+   <Col className="per" style={{marginTop:"1.5%"}}>{yen}%</Col>
    <Col ><p className="des">Engagement level</p></Col>
    
     </Row>
@@ -262,8 +249,8 @@ const sh_eng=()=>{
              </thead>
              <tbody>
                 <tr>
+        <td><center>{iden}</center></td>
         <td><center>{namen}</center></td>
-        <td><center>{ide}</center></td>
         </tr>
         </tbody>
         </Table>
@@ -286,7 +273,7 @@ const sh_eng=()=>{
    ))}
    </Pie>
    </PieChart></Col>
-   <Col className="per" style={{marginTop:"1.5%"}}>{tbla}</Col>
+   <Col className="per" style={{marginTop:"1.5%"}}>{ybl}%</Col>
    <Col ><p className="des">Body language says</p></Col>
    
     </Row>
@@ -301,8 +288,8 @@ const sh_eng=()=>{
              </thead>
              <tbody>
                 <tr>
+        <td><center>{iden}</center></td>
         <td><center>{namen}</center></td>
-        <td><center>{idn}</center></td>
         </tr>
         </tbody>
         </Table>

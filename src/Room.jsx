@@ -3,14 +3,18 @@ import {  Navigate, useParams ,useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import Peer from "peerjs"; 
 import {v4 as uuidv4} from 'uuid';
+import html2canvas from "html2canvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 //import app from "./Config";
 //import firbase from "firebase/app";
 //import "firebase/firestore";
+import captureVideoFrame from "capture-video-frame";
 import { Form ,Button, Image ,Col,Row, Table ,Alert , Modal} from "react-bootstrap";
 import { Video } from "./Video";
 import {m } from "./Focus";
+import axios from "axios";
+
 const socket = io('http://localhost:5000/');
 const ws=io(socket); 
 //const firestore=firbase.firbase();
@@ -31,7 +35,7 @@ export function Room({nam}){
  const md=uuidv4();
  const [user,setuser]=useState();
  const peer = new Peer(nam);
- 
+ const [c,setc]=useState(true);
  const [n,setn]=useState([]);
  const [vi,setvi]=useState([]);//stream
  const [vs,setvs]=useState([]);//screen
@@ -46,14 +50,33 @@ export function Room({nam}){
   const [message,setmessage]=useState([]);
  const [share,setshare]=useState(true);
  
+ var date =new Date();
 
-
-
+ 
 
 useEffect(() => {
 var i='';
 console.log("n is",n);
 console.log("my name",nam);
+
+axios.get("http://localhost:3006/user/room/"+id)
+.then(res=>{ console.log("name: ",res);
+
+
+if(res.data.host===nam){setc(true);}
+else {setc(false);}
+
+
+}).catch(err=>{
+    if(err)
+        {console.log("error message : ", err);
+           console.log("cant find name")
+        }
+});
+
+
+
+
  // socket.emit("message","good day");
  //socket.on("get_message",(m)=>{setmessage(m); console.log(m)});
   socket.on("getusers",(room)=>{
@@ -102,6 +125,7 @@ socket.on("share",(vst)=>{
    
        if(myvideo.current){
       myvideo.current.srcObject = stream;
+      
 console.log("stream  :  ",stream);
 setstream(stream);
   }
@@ -151,6 +175,16 @@ console.log("cid",i);
    
 });
 
+
+
+
+// take image 
+
+
+
+
+
+
     },[id]);
 const [k,setk]=useState(false);
  function tonewuser(userid,stream) {
@@ -186,7 +220,9 @@ const [k,setk]=useState(false);
    //  setvi(c=>c.filter(k=>k!==userid));
        
              });
-           
+
+      //image
+
 
 
 
@@ -214,18 +250,57 @@ console.log("n is",n);
          
           navigate('/room/'+id+'/report', {replace:true} );
        }
-       const leave=()=>{
+
+
+       const leave=(e)=>{
         //console.log();
-       window.location.href='http://localhost:3000/'
+      // window.location.href='http://localhost:3000/'
       
+
+      e.preventDefault();
+ console.log("username:",nam, " id:",id," time:",date)
+      axios.post("http://localhost:3006/record/leave",
+       {"username":nam,"room_id":id,"timestamp":date})
+       .then(res =>{
+         console.log(res.data);
+        window.location.href='http://localhost:3000/'
+        
+   }).
+   catch (err => {
+     
+       if(err)
+       {console.log("error message : ", err);
+           alert(err.response.data.message);
+       }
+   });
+
       //    navigate('/', {replace:true} );
        }
        
-       const End=()=>{
+       const End=(e)=>{
         
         socket.emit("end",id);
-        window.location.href='http://localhost:3000/'
-      
+        window.location.href='http://localhost:3000/';
+      /*
+        e.preventDefault();
+        console.log("username:",nam, " id:",id," time:",date)
+             axios.post("http://localhost:3006/end",
+              {"username":nam,"room_id":id,"timestamp":date})
+              .then(res =>{
+                console.log(res.data);
+               window.location.href='http://localhost:3000/'
+               
+          }).
+          catch (err => {
+            
+              if(err)
+              {console.log("error message : ", err);
+                  alert(err.response.data.message);
+              }
+          });
+
+*/
+
        }
        
        const tog_mic=()=>{
@@ -321,10 +396,47 @@ console.log("n is",n);
 
 }
  
+//take images 
+
+
+const take=(e)=>{
+ // e.preventDefault();
+  const ele=document.getElementById("my");
+  html2canvas(ele).then((c)=>{
+      let image=c.toDataURL("image/jpeg");
+      console.log("screeeeeeeeeen");
+      console.log("image : ",image);
+  //  const a=document.createElement("a");
+  //  a.href=image;
+  //  a.download="capture.jpeg";
+  //  a.click();
+  const imm= image.replace("data:image/jpeg;base64,","");
+        console.log("ccc: ",imm);
+ console.log("username:",nam, " id:",id," time:",date)
+      axios.post("http://localhost:3006/frame",
+       {"username":nam,"room_id":id,"timestamp":date,"base64_image":imm })
+       .then(res =>{
+         console.log(res.data);
+              
+   }).
+   catch (err => {
+     
+       if(err)
+       {console.log("error message : ", err);
+          console.log("fffffffffffffffff"); 
+       }
+   });
+
 
   
+  })
+}
+/*
+if(c){
+setInterval(take, 60000);
+}
 
-
+*/
 
 
 
@@ -363,9 +475,9 @@ console.log("n is",n);
 <h2 style={{textAlign:"left" , margin:"9px"}}>
 
   
-  <Button variant="danger" style={{marginRight:"10px"}} onClick={End}>End</Button>
+ {c && <Button variant="danger" style={{marginRight:"10px"}} onClick={End}>End</Button>}
   
-  <Button variant="danger" style={{marginRight:"10px"}} onClick={leave}>leave</Button>
+  {!c &&<Button variant="danger" style={{marginRight:"10px"}} onClick={leave}>leave</Button>}
   
   
   </h2>
@@ -407,7 +519,7 @@ style={{ width: "500px",margin:"3px" , display:"inline-block"}}
   <center><div >{user}</div></center>
    
   
-      <video   className="video"
+      <video  id="my"  className="video"
 playsInline
 muted
 ref={myvideo}

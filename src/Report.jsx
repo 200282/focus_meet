@@ -1,4 +1,4 @@
-import React, { useRef ,useState} from "react";
+import React, { useRef ,useState , useEffect} from "react";
 import { Link , Navigate, useParams ,useNavigate, Routes, Route,BrowserRouter} from "react-router-dom";
 import { All } from "./All";
 import { Student } from "./Student";
@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button } from "react-bootstrap";
 import {m } from "./Focus";
 
-export function Report({name}){
+export function Report({nam}){
     
 const printref=useRef();
     const navigate=useNavigate();
@@ -19,6 +19,13 @@ const printref=useRef();
             
         }
     );
+
+    useEffect(()=>{
+        console.log("name:",nam);
+        setuser(nam);
+    },[])
+
+   
     const back=()=>{
         navigate('/meet/'+user);
     }
@@ -34,7 +41,7 @@ const printref=useRef();
             <div ref={printref} >
             <br></br>
 
-<All/>
+           <All/>
 
 </div>
 <h2 style={{textAlign:"right"}}>

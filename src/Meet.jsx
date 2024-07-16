@@ -5,14 +5,14 @@ import { io } from "socket.io-client";
 
 import {v4 as uuidv4} from "uuid";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import axios from "axios";
 import { Form ,Button, Row ,Col, Image} from "react-bootstrap";
 import {m } from "./Focus";
 import { My } from "./My";
 const socket = io('http://localhost:5000/');
  
 
-export function Meet({name}){
+export function Meet({nam}){
 
 const navigate=useNavigate();    
 const location=useLocation();
@@ -20,30 +20,69 @@ const [user,setuser]=useState()
 const [room,setroom]=useState()
 const roomid=uuidv4();
 const id=uuidv4();
- 
+var date =new Date();
 
 useEffect(() => {
 
    console.log(location);
+   console.log(date);
     
 },[]);
  
 
 
 
-var create=()=>{
+var create=(e)=>{
    
   //  socket.emit("create",roomid)
  // socket.emit("join",roomid,id);
     console.log("create")
-    navigate('/room/'+roomid);}
+    e.preventDefault();
+ console.log("room:",roomid," name:",nam,"date",date)
+    axios.post("http://localhost:3006/room",
+     {"room_id":roomid ,"host_name":nam , "created_at":date})
+     .then(res =>{
+       console.log(res.data);
+       navigate('/room/'+roomid);
+      
+ }).
+ catch (err => {
+   
+     if(err)
+     {console.log("error message : ", err);
+         alert(err.response.data.message);
+     }
+ });
+
+
+
+
+    }
     
 
 
-var join=()=>{
+var join=(e)=>{
+
+
+    e.preventDefault();
+ 
+    axios.post("http://localhost:3006/record/join",
+     {"username":nam,"room_id":room  , "timestamp":date})
+     .then(res =>{
+       console.log(res.data);
+       navigate('/room/'+room);
+      
+ }).
+ catch (err => {
+   
+     if(err)
+     {console.log("error message : ", err);
+         alert(err.response.data.message);
+     }
+ });
 
   
-   
+  /* 
    
     if(room){
      //   socket.emit("join",room,id);
@@ -52,7 +91,7 @@ var join=()=>{
     }
     else {
         alert("please enter room id");
-    }
+    }*/
 }
 
   
@@ -112,7 +151,6 @@ const my_account=()=>{
 
 </center>
 
-<div className="gif" style={{marginLeft:"10%" ,marginBottom:"10%" , marginTop:"0px"}}></div>
 </div>
  
     </React.Fragment>
@@ -120,3 +158,5 @@ const my_account=()=>{
     
 
 }
+
+//<div className="gif" style={{marginLeft:"10%" ,marginBottom:"10%" , marginTop:"0px"}}></div>

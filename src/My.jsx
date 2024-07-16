@@ -6,13 +6,14 @@ import{getDatabase,ref,child,get,set,update,remove} from "firebase/database";
 
 import { Form ,Button, Row ,Col } from "react-bootstrap";
 import {m } from "./Focus";
+import axios from "axios";
 
-export function My({name}){
+export function My({nam}){
 
     const navigate=useNavigate();
     const [user,setuser]=useState();
     const db=getDatabase();
-    const [nam,setnam]=useState("")    ;
+       ;
     const [email,setemail]=useState(" ");
     const [id,setid]=useState("");
     const [reports,setreports]=useState([]);
@@ -21,7 +22,23 @@ export function My({name}){
    const v=[{roomid:"7772d0f4-1ba6-4860-83f5-de7b06caea93" ,  time:"12:05" },{roomid:"6da0d240-8160-4629-be7f-b2cd913c7a87" , time:"5:30" }]
 
 useEffect(()=>{
-    const dbref=ref(db);
+
+
+axios.get("http://localhost:3006/user/"+nam)
+.then(res=>{ console.log(res.data);
+setemail(res.data.email.email);
+setreports(res.data.report_ids);
+
+
+}).catch(err=>{
+    if(err)
+        {console.log("error message : ", err);
+            alert(err.response.data.message);
+        }
+});
+
+
+  /*  const dbref=ref(db);
    
     setreports(v);
     get(child(dbref,'users/'+user)).then((snapshot)=>{
@@ -30,8 +47,10 @@ useEffect(()=>{
    setemail(snapshot.val().email);
            }
     else {}
-    }).catch((e)=>{alert(e)});},[])
+    }).catch((e)=>{alert(e)});*/
+},[])
     
+
  
 
 
@@ -52,7 +71,7 @@ useEffect(()=>{
 </Col>
 <Col
 className="sum" style={{border:"dashed",borderColor:"#d4b7ea"  }}><h4 style={{color:"#28a4bd"}}><center>My Account</center></h4>
-<p style={{fontSize:"large"}}> Name : {user}</p>
+<p style={{fontSize:"large"}}> Name : {nam}</p>
 <p style={{fontSize:"large"}}> Email : {email}</p>
 </Col>
 </Row>
@@ -65,14 +84,14 @@ className="sum" style={{border:"dashed",borderColor:"#d4b7ea"  }}><h4 style={{co
    <br></br>
    {reports.map((data,i)=>
    <ul  key={i}   className="divmy">
-    <p style={{display:"inline-block" , margin:"12px"}}> {data.roomid}</p><span>{data.time}</span> 
+    <p style={{display:"inline-block" , margin:"12px"}}> {data.room_id}</p><span>{data.time}</span> 
    
-    <Button className="but" onClick={()=>{
-
-navigate('/room/'+data.roomid+'/report', {replace:true} );
+    <Button className="but" 
+    style={{backgroundColor:"#28a4bd" ,margin:"1%" ,borderColor:"#28a4bd"  ,float:"right" ,marginRight:"7px" }}
+    onClick={()=>{
+        navigate('/room/'+data.room_id+'/report', {replace:true} );
     
-
-    }} style={ {borderColor:"#28a4bd" , backgroundColor:"#28a4bd", float:"right" , marginTop:"7px" , marginRight:"7px"}}>Open</Button>
+    }} >Open</Button>
   
     </ul>
   

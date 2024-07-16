@@ -10,6 +10,7 @@ import { All} from "./All";
 import { Student } from "./Student";
 import { Cha } from './Cha';
 import { My } from "./My";
+import { Im} from "./Im";
 export const m = createContext();
 
 export function Home(){
@@ -24,17 +25,17 @@ return(
 <BrowserRouter>
   
     <Routes>
-<Route  path='/' element={<Meet/>}/>
+<Route  path='/' element={<Meet nam={nam}/>}/>
 <Route path="/signup" element={<Sign/>}/>
 <Route path="/login" element={<Login getusername={getusername}/>}/>
 <Route path="/room/:id" element={<Room nam={nam} />}/>
 <Route path="/chat" element={<Cha/>}/>
-<Route path="/meet/:id" element={<My/>}/>
-<Route path="/room/:id/report" element={<Report/>}/>
+<Route path="/meet/:id" element={<My nam={nam}/>}/>
+<Route path="/im" element={<Im/>}/>
 <Route path="/room/:id/report/student" element={<Student/>}/>
-<Route path="/room/:id/report/overall" element={<All/>}/>
+<Route path="/room/:id/report" element={<All nam={nam}/>}/>
     </Routes>
-    
+  
     </BrowserRouter>
     </m.Provider>
     </React.Fragment>
